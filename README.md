@@ -42,7 +42,7 @@ It helps users visualize market depth in real time by fetching data every two se
   ## 🖼️ Screenshots
   Here are some screenshots of the application:
   
-  ![Screenshot 1](https://via.placeholder.com/800x400?text=Screenshot+1)
+  ![Screenshot 1](./images/orderbook-preview.png)
 
    ---
 
