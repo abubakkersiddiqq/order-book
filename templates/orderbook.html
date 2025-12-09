@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>OrderBook Data</title>
+{% endblock %}
+
+{% block content %}
+
+<h1>Live Order Book</h1>
+
+<label for="symbol-select">Choose Crypto:</label>
+<select id="symbol-select">
+    <option value="BTCUSDT">Bitcoin (BTCUSDT)</option>
+    <option value="ETHUSDT">Ethereum (ETHUSDT)</option>
+</select>
+
+<br><br>
+
+<label class="orderbook-title">Current OrderBook Data:</label>
+<br><br><br>
+<div class="tables-container">
+
+    <table border="1" class="orderbook-table">
+        <thead>
+            <tr>
+                <th colspan="3">BIDS (Buy Orders)</th>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody id="orderbook-body-bids"></tbody>
+    </table>
+
+    <table border="1" class="orderbook-table">
+        <thead>
+            <tr>
+                <th colspan="3">ASKS (Sell Orders)</th>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody id="orderbook-body-asks"></tbody>
+    </table>
+
+</div>
+
+<script src="/static/main.js"></script>
+
+{% endblock %}
