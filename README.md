@@ -1,5 +1,6 @@
 #  Real-Time Crypto Order Book
-
+A Flask-based web application that fetches and displays live cryptocurrency order book data using the Binance Depth API.
+The project demonstrates backend–frontend data flow, REST API integration, JSON parsing, and auto-refreshing UI updates.
 
  ## 📝 Description
 A real-time cryptocurrency order book viewer built using Flask, JavaScript, and the Binance Depth API.  
