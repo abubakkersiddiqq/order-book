@@ -1,13 +1,13 @@
-from flask import Flask,render_template,jsonify,request
+from fastapi import FastAPI,Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import Timeout
 import requests
 
-app = Flask(__name__,template_folder = "templates", static_folder = "static")
-
-def get_symbol():
-    symbol = request.args.get("symbol", "BTCUSDT")
-    return symbol
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+app.mount('/static', StaticFiles(directory="static"), name="static")
 
 def fetch_orderbook_data(url):
     session = requests.Session()
@@ -27,32 +27,24 @@ def fetch_orderbook_data(url):
     except Timeout as to:
         print("Timeout Error: ",to)
 
-@app.route("/orderbook_data")
-def orderbook_data():
+@app.get("/orderbook_data")
+def orderbook_data(symbol: str = "BTCUSDT"):
 
-    symbol = get_symbol()
     url = f"https://api.binance.com/api/v3/depth?symbol={symbol}&limit=20"
 
     data = fetch_orderbook_data(url)
 
     if data is None:
-        return jsonify({"error":"Unable to Fetch the data"}),500
+        return {"error":"Unable to Fetch the data"}
     bids = data.get("bids",[])
     asks = data.get("asks",[])
 
-    return jsonify(
-        {
+    return {
             "symbol": symbol,
             "bids":bids,
             "asks":asks
         }
-    )
-
-
-
-
-@app.route("/")
-def home():
-    return render_template("orderbook.html")
-if __name__ == '__main__':
-    app.run(debug=True)
+    
+@app.get("/")
+def home(request : Request):
+    return templates.TemplateResponse("orderbook.html", {"request" : request})

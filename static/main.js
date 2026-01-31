@@ -49,4 +49,4 @@ document.getElementById("symbol-select").addEventListener("change", () => {
     console.log("Symbol changed (placeholder)");
 });
 
-console.log("JS connected");
+
